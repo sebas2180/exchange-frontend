@@ -1,0 +1,76 @@
+
+<br>
+<div class="div1">
+    <p>Bienvenido   {{this.usuario.usuario}}!</p>
+    <div class="edit">
+        <i class="material-icons">settings_system_daydream</i>
+      </div>
+      
+</div>
+
+<div class="container" id="div2">
+    <mat-grid-list cols="2" rowHeight="160px" >
+        <mat-grid-tile class="grid-test-1"> 
+        <mat-card style="width: 105%;">
+            <mat-card-header>
+                <mat-card-title>
+                    <label   class=" text-center"  > Depositos</label>
+                </mat-card-title>
+            </mat-card-header>
+           <mat-card-content>
+            <h4 class="text-center">
+                <ul>
+                    <li> Totales: {{this.cantidad_depositos}}</li>
+                    <li>Ultimo mes: 0</li>
+                </ul>
+            </h4>  
+            </mat-card-content>
+        </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <mat-card style="width: 105%;">
+                <label   class=" text-center" >Tasa</label>
+                <h4 class="text-center"> aca vaa </h4>  
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <mat-card style="width: 105%;">
+                <label   class=" text-center" >Pais</label>
+                <h4 class="text-center">{{this.usuario.pais}}</h4>  
+                </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1" > 
+            <mat-card style="width: 105%;">
+                <mat-card-header>
+                    <mat-card-title>
+                        <label   class=" text-center" >Saldo </label>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                   <mat-label>
+                    <h4 class="text-center">{{this.usuario.saldo}}
+                        <span matPrefix>$&nbsp;</span>
+                    </h4> 
+                   </mat-label> 
+                </mat-card-content>
+                </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div class="container-fluid" id="div3">
+    <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile class="grid-test-1"> 
+            <button 
+            class="btn btn-success btn-block " 
+            routerLink="/MisTransacciones">Transacciones</button>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <button class="btn btn-success btn-block "
+                    routerLink="/PanelBeneficiarios">Mis beneficiarios</button>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <button class="btn btn-success btn-block ">Enviar</button>
+            
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
