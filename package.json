@@ -14,7 +14,10 @@
       "build:ssr": "ng build --prod && ng run FrontEnd:server:production",
       "prerender": "ng run FrontEnd:prerender",
       "star:heroku": "node dist/server",
-      "postinstall: ":"npm run build:ssr"
+      "heroku-postbuild": "ng build --prod",
+      "@angular/cli": "~9.0.1",
+      "@angular/compiler-cli": "~9.0.0",
+      "typescript": "~3.7.5"
     },
     "private": true,
     "dependencies": {
@@ -58,6 +61,9 @@
       "ts-node": "~8.6.2",
       "tslint": "~6.0.0",
       "typescript": "~3.7.5"
-    }
+    },
+    "engines": {
+      "node": "10.16.3",
+      "npm": "6.13.4"    }
   }
   
