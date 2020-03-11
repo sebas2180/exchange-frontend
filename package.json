@@ -2,14 +2,15 @@
   "name": "front-end",
   "version": "0.0.0",
   "scripts": {
+
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng main --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run FrontEnd:serve-ssr",
-    "serve:ssr": "node dist/FrontEnd/server/main.js",
+    "dev:ssr": "ng run FrontEnd:main-ssr",
+    "main:ssr": "node dist/FrontEnd/main/main.js",
     "build:ssr": "ng build --prod && ng run FrontEnd:server:production",
     "prerender": "ng run FrontEnd:prerender",
     "star:heroku": "node dist/server",
