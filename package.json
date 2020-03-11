@@ -4,11 +4,11 @@
   "scripts": {
 
     "ng": "ng",
-    "start": "npm start",
-    "build": "npm build",
-    "test": "npm test",
-    "lint": "npm lint",
-    "e2e": "npm e2e",
+    "start": "ng serve --proxy-config proxy.config.json",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
     "dev:ssr": "ng run FrontEnd:serve-ssr",
     "serve:ssr": "node dist/FrontEnd/main/main.js",
     "build:ssr": "ng build --prod && ng run FrontEnd:server:production",
