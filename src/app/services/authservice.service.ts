@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthserviceService {
 
-  public ruta :string  = `http://157.245.136.204:2000/`;
+  public ruta :string  = `http://134.122.13.83:2000/`;
   public clearLocalStorage(){
     localStorage.removeItem('userInfo');
     this.getLocal();
