@@ -10,9 +10,10 @@ import { CanActivate,Router } from '@angular/router';
 })
 export class UsuarioService implements CanActivate {
   desconectado: boolean= false;
+  panelPrincipal:boolean =false;//sirve para
   public logeado: boolean= false;
   public usuario: UsuarioModule;
-  
+   
   constructor(private http: HttpClient,private authService : AuthserviceService, private route : Router) { }
 
   canActivate(){
@@ -24,19 +25,104 @@ export class UsuarioService implements CanActivate {
     return false;
   }
   login(usuario: UsuarioModule) {
-    return this.http.post(`http://localhost:3000/login`, usuario);
+    return this.http.post(`${this.authService.ruta}login`, usuario);
   }
   logOut() {
-    return this.http.get(`http://localhost:3000/logout`);
+    return this.http.get(`${this.authService.ruta}logout`);
   }
   getUsuario(id: number): Observable<UsuarioModule> {
     const params = new HttpParams()
       .set('id',id.toString());
-      return this.http.get<string>(`http://localhost:3000/getUsuario/`,
+      return this.http.get<string>(`${this.authService.ruta}getUsuario/`,
       {params: params, observe: 'response'})
           .pipe(
           map((data => new UsuarioModule().deserialize(data))
         )
       )
+}
+getUserForEmail(email: string) {
+  const params = new HttpParams()
+    .set('email',email.toString());
+    return this.http.get<string>(`${this.authService.ruta}getUserForEmail/`,
+    {params: params, observe: 'response'});
+}
+getUserForUser(usuario: string) {
+  const params = new HttpParams()
+    .set('usuario',usuario.toString());
+    return this.http.get<string>(`${this.authService.ruta}getUserForUser/`,
+    {params: params, observe: 'response'});
+}
+getAllUsers(): Observable<UsuarioModule> {
+
+    return this.http.get<string>(`${this.authService.ruta}getAllUsers/`)
+        .pipe(
+        map((data => new UsuarioModule().deserialize(data))
+      )
+    )
+}
+usuarioVerificado(id)  {
+  const params = new HttpParams()
+  .set('id',id.toString());
+  return this.http.get<string>(`${this.authService.ruta}usuarioVerificado/`,
+  {params: params, observe: 'response'});
+}
+
+getRol(){
+  this.canActivate();
+  const data = JSON.parse(this.authService.getLocal());
+  const id= data['id'];
+  
+  const params = new HttpParams()
+  .set('id_user',id);
+  return this.http.get(`${this.authService.ruta}getRol`,
+  {params: params,observe: 'response'});
+}
+addUsuario(form: FormData){
+  return this.http.put<string>(`${this.authService.ruta}signup`,form);
+}
+updateUsuario(form: FormData){
+  return this.http.post<string>(`${this.authService.ruta}updateUsuario`,form);
+}
+disabledUsuario(usuario){
+  const params = new HttpParams()
+  .set('usuario',usuario);
+  return this.http.get<string>(`${this.authService.ruta}disabledUsuario`,
+  {params: params, observe: 'response'});
+}d
+validarPassword(password,usuario){
+  const params = new HttpParams()
+  .set('password',password)
+  .set('usuario',usuario);
+  return this.http.get<string>(`${this.authService.ruta}validarPassword/`,
+  {params: params, observe: 'response'});
+}
+isCliente(){
+  this.getRol().subscribe(
+    res=>{
+      const aux = res['body'];
+      const rol_usuario = aux['rol'];
+      console.log('roool:         '+rol_usuario);
+      if(rol_usuario == 'cliente'){
+        return true;
+      }else{
+        this.route.navigate(['/panelAdministrador']);
+      }
+    }
+  );
+}
+isAdministrador(){
+  this.getRol().subscribe(
+    res=>{
+
+      const aux = res['body'];
+      const rol_usuario = aux['rol'];
+      console.log(rol_usuario);
+      if(rol_usuario=='administrador'){
+        return true;
+      }else{
+        this.route.navigate(['/panel-usuario']);
+      }
+    }
+  );
 }
 }

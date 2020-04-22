@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthserviceService {
 
+  public ruta :string  = `http://157.245.136.204:2000/`;
   public clearLocalStorage(){
     localStorage.removeItem('userInfo');
     this.getLocal();
@@ -14,6 +15,7 @@ export class AuthserviceService {
   public getLocal(){
     return localStorage.getItem('userInfo');
   }
+
   public isAuthenticatede() : Boolean {
     let userData = localStorage.getItem('userInfo');
     if(localStorage.getItem('userInfo') != 'undefined'){

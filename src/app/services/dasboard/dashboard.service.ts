@@ -1,18 +1,40 @@
+import { AuthserviceService } from '../../services/authservice.service';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { DashboardModule } from 'src/app/models/dashboard/dashboard.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
+  isMostrarDash:number=-1;
 
-  constructor(private http: HttpClient) { }
+  HttpUploadOptions = {     
+     headers: new HttpHeaders({ Accept: 'application/json' })
+};
 
-  uppload(image: File) {
-    const formData = new FormData();
-    formData.append('image', image);
-    return this.http.post<any>(`http://localhost:3000/prueba`, formData,
-    {reportProgress: true,observe: 'events'});
+  constructor(private http: HttpClient, private AuthService : AuthserviceService) { }
+
+  uppload(data: FormData) {
+ 
+    return this.http.post(`${this.AuthService.ruta}prueba`, data,this.HttpUploadOptions);
   }
+  upploadInfo(data: FormData) {
+    return this.http.post<string> (`${this.AuthService.ruta}upploadInfo`, data);
+  }
+  getDashboard(id_deposito) {
+    console.log('get_dasboard');
+     
+    const params = new HttpParams()
+    .set('id_deposito', id_deposito.toString());
+    let headers = new HttpHeaders({
+      'Content-Type': 'ResponseContentType.Blob'
+   });
+      return this.http.get<Blob>(`${this.AuthService.ruta}getDashboard`,
+      {params: params,headers:headers});
+
+}
+
 }

@@ -1,0 +1,98 @@
+ <div class="container-fluid">
+    <div class="principal">
+        <form action="" [formGroup]="this.dashForm" (ngSubmit)="enviar(this.dashForm)" enctype="multipart/form-data">
+            <div class="div1">
+            </div>
+        <div class="card">
+            <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6- col-sm-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-sm-12">
+                                    <div class="card card1">
+                                        <div class="card-header header1">
+                                            <h3> Detalle montos</h3>
+                                            <div class="acciones">
+                                                <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                                *ngIf="this.viewMontos" (click)="change()">vertical_align_top
+                                                </span>
+                                                <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                                *ngIf="!this.viewMontos" (click)="change()">vertical_align_bottom
+                                                </span>
+                                            </div>
+                                        </div>
+                                    <show-montos *ngIf="this.viewMontos"  
+                                    [deposito]="this.deposito"></show-montos>   
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-sm-12">
+                                    <div class="card card2">
+                                        <div class="card-header">
+                                           <h3> Remitente  </h3>
+                                            <div class="acciones">
+                                                <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                                *ngIf="this.viewRemitente" (click)="changeStatusRemitente()">vertical_align_top
+                                                </span>
+                                                <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                                *ngIf="!this.viewRemitente" (click)="changeStatusRemitente()">vertical_align_bottom
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <show-remitente *ngIf="viewRemitente" [deposito]="this.deposito"></show-remitente>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6 col-lg-6 col-sm-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-sm-12">
+                                    <div class="card card5">
+                                        <div class="card-header">
+                                            <h3>Destinatario</h3>
+                                            <div class="acciones">
+                                                <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                                *ngIf="this.viewDestinatario" (click)="changeStatusDestinatario()">vertical_align_top
+                                                </span>
+                                                <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                                *ngIf="!this.viewDestinatario" (click)="changeStatusDestinatario()">vertical_align_bottom
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <show-destinatario *ngIf="this.viewDestinatario" [deposito]="this.deposito"></show-destinatario>
+                                    </div>
+                                    
+                                 </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-sm-12">
+                                    <div class="card card3">
+                                        <div class="card-header">
+                                            <h3>COMPROBANTE</h3>
+                                     </div>
+                                     <div class="card-body body3">
+                                         <div class="box">
+                                             <app-file-uploap (onFileSelect)="onFileSelect($event)"
+                                                    (isSelected)="changeIsSelected($event)">
+                                              </app-file-uploap>
+                                         </div>
+                                     <div class="invalid-feedback" *ngIf="submitted && dashForm.controls.photo.invalid">
+                                     <div *ngIf="dashForm.controls.photo.errors.required">El comprobante es requerido</div>
+                                 </div>
+                                 <div class="text-danger"  *ngIf="uploadError">{{uploadError}}</div>
+                                 </div>
+                                 <div class="card-footer footer3">
+                                     <button class="btn btn-primary "  type="submit"   [disabled]="dashForm.invalid"> Enviar
+                                     </button>
+                                     <button class="btn btn-danger " (click)="volver()" >  Enviar
+                                     </button>
+                                 </div>
+    
+                                    </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+ </div>

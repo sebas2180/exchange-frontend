@@ -1,0 +1,112 @@
+barra-superior{
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    z-index: 50;
+     
+}
+
+barra-inferior{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    
+    bottom: 0%;
+}
+
+.container-fluid{
+    width: 100%;
+    position: absolute;
+   // display: flex;
+    top: 80px;
+    margin-bottom: 90px;
+}
+
+.box,.box2,.box3,.box4{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card{
+    margin-top: 6px;
+    width: 100%;
+}
+.card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2em;
+    color:white;
+}
+.header{
+    background-color: #67cf75; 
+}
+.header2{
+    background-color: #67cf75; 
+
+}
+.header3{
+    background-color: #67cf75; 
+}
+.header4{
+    background-color: #67cf75; 
+}
+.card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+img{
+    width: 70%;
+    height: 70%;
+}
+.espacio{
+    height: 10px;
+}
+
+li{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.botones-usuario{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    align-self: center;
+    justify-content: center;
+
+}
+.boton{
+    width: 50%;
+    bottom: 0;
+    height: 40px;
+    background-color: #67cf75;
+    text-align: center;
+    align-items: center;
+    font-size: 1.4rem;
+    justify-content: center;
+  }
+nuevo-dashboard{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: initial;
+    flex-direction: column-reverse;
+    width: 100%;
+   // top: 80px;
+}
+button,.iconn{
+    display: flex;
+    justify-content: center;
+    align-items: center; margin-left: 25%;
+    flex-direction: row;
+}
+.body2{
+    position: relative;
+    height: 80px;
+}

@@ -1,63 +1,84 @@
-<br><br><br>
-<div class="parent" id="cont">
+<barra-superior [titulo]="this.titulo" 
+                [volver_atras]="this.BarraSuperiorService.volver" 
+                (verUsuario)="volver($event)">
+</barra-superior>
+<div class="mensaje-noVerificado" *ngIf=!this.isUsuarioVerificado>
+<div class="card">
+  <h3>No puedes realizar transferencias</h3><h3>Falta verificar datos.</h3>
+</div>
+</div>
+<form class="my-form" [formGroup]="this.form" (ngSubmit)="this.enviar()" >
+  <div class="parent" id="cont" *ngIf="!deposito_guardado" @enterState>
   <div class="info">
-      <label id="lbl_info">Mi saldo: {{this.UsuarioService.usuario.saldo}} 
+      <label id="lbl_info" *ngIf="this.isForm">Mi saldo: {{this.UsuarioService.usuario.saldo}} 
                   &nbsp;&nbsp;&nbsp; Tasa del día en
-                  {{this.UsuarioService.usuario.pais}}:&nbsp; {{this.TasasService.Tasa.tasa_actual}}</label>
-       </div>
+                  {{this.UsuarioService.usuario.pais}}:{{this.form.get('tasa_actual').value}} </label>
+  </div>
   <br>
+ <div class="divForm">
   <mat-card>
-    <form class="my-form" [formGroup]="this.form" (ngSubmit)="this.enviar()" >
+    <!-- <form class="my-form" [formGroup]="this.form" (ngSubmit)="this.enviar()" > -->
     <mat-card-header>
       <mat-card-title>
         <h2>Nueva transferencia</h2>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-       <mat-card-content >
          <br>
         <mat-form-field class="full-width">
           <mat-label>Fecha</mat-label>
           <input  matInput  type="text" placeholder="fecha"
                   name="fecha" formControlName="fecha" readonly="readonly">
         </mat-form-field>
-             <mat-form-field class="full-width">
+        <mat-form-field class="full-width">
                 <mat-label>Beneficiario</mat-label>
                 <mat-select [(value)]="banco" formControlName="destinatario" >
-                  <mat-option *ngFor="let ben of this.BeneficiarioService.beneficiarios" [value]="ben">{{ ben.nombre }},{{ben.apellido}}_{{ben.banco}}_{{ben.tipo_cuenta}}: {{ben.nro_cuenta}}</mat-option>
+                  <mat-option *ngFor="let ben of this.BeneficiarioService.beneficiarios" [value]="ben"
+                  (onSelectionChange)="this.beneficiarioSeleccion(ben.id)" >{{ ben.nombre }},{{ben.apellido}}_{{ben.banco}}_{{ben.tipo_cuenta}}: {{ben.nro_cuenta}}</mat-option>
                    </mat-select>
-              </mat-form-field>
-              <mat-form-field class="full-width">
-                <mat-label>Monto</mat-label>
-                <span matPrefix>$&nbsp;</span>
-                <input  matInput  type="number" placeholder="Monto" 
-                        name="monto" formControlName="monto" (keypress)="this.calcularMonto()">
-                      <mat-error *ngIf="this.form.get('monto')?.invalid">El monto debe ser mayor a cero</mat-error>
-              </mat-form-field>
-              <mat-form-field class="full-width">
-                <mat-label>Monto transaccion</mat-label>
-                <input  matInput  type="number" placeholder="Monto transaccion" #importe
-                        name="monto_transaccion" formControlName="monto_transaccion" readonly="readonly">
-                <span matPrefix>$&nbsp;</span>
-              </mat-form-field>
+                   <mat-error *ngIf="this.form.get('destinatario')?.invalid ">Falta seleccionar destinatario</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Monto</mat-label>
+          <span matPrefix>$&nbsp;</span>
+          <input  matInput  type="number" placeholder="Monto"  
+                name="monto" formControlName="monto" (keyup)="this.calcularMonto( )">
+          <mat-error *ngIf="this.form.get('monto')?.invalid ">El monto debe ser mayor a cero</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Monto transaccion</mat-label>
+          <input  matInput  type="number" placeholder="Monto transaccion" #importe
+              name="monto_transaccion" formControlName="monto_transaccion" readonly="readonly">
+            <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Saldo restante</mat-label>
+          <input  matInput  type="number" placeholder="Monto transaccion" #importe
+              name="monto_transaccion" formControlName="saldo_restante" readonly="readonly">
+            <span matPrefix>$&nbsp;</span>
+            <mat-error *ngIf="this.form.get('saldo_restante')?.invalid ">El saldo restante no debe ser negativo</mat-error>
+        </mat-form-field>
               <br>
         </mat-card-content>
-    </mat-card-content>
-    <!-- <mat-card-footer>
-      <mat-label>
-        Monto transaccion:
-      </mat-label>
-    </mat-card-footer> -->
-    <mat-card-actions>
-      <br>
+    <!-- <mat-card-actions class="action1">
       <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Enviar</button>
     </mat-card-actions>
-    <mat-card-actions>
+    <mat-card-actions  class="action2">
       <button mat-stroked-button color="accent" routerLink="/PanelBeneficiarios">volver</button>
-    </mat-card-actions>
-  </form>
+    </mat-card-actions> -->
+  <!-- </form> -->
   </mat-card>
  </div>
+ </div>
+ <div class="botones">
+   <div class="boton"  (click)="this.enviar()"  disabled="!form.valid" *ngIf=this.isUsuarioVerificado >
+        <h2 >ENVIAR</h2>
+   </div>
+   <div class="boton"  (click)="this.actualizarDatos()"  *ngIf=!this.isUsuarioVerificado >
+    <h2 >VERIFICAR CUENTA</h2>
+</div>
+ </div>
+</form>
 
  
 

@@ -1,3 +1,4 @@
+
 import { BeneficiarioModule } from './../../models/beneficiario/beneficiario.module';
 import { Injectable } from '@angular/core';
 import { AuthserviceService } from './../authservice.service';
@@ -25,10 +26,14 @@ export class BeneficiarioService {
     return false;
   }
 
+  addBeneficiario(form: FormData){
+    console.log(form);
+    return this.http.put(`${this.authService.ruta}addBeneficiario/`,form);
+  }
   getBeneficiarios(id: number): Observable<BeneficiarioModule>{
     const params = new HttpParams()
       .set('id_usuario',id.toString());
-      return this.http.get<string>(`http://localhost:3000/getBeneficiarios/`,
+      return this.http.get<string>(`${this.authService.ruta}getBeneficiarios/`,
       { params: params, observe: 'response'})
           .pipe(
           map((data => new BeneficiarioModule().deserialize(data))
@@ -36,10 +41,17 @@ export class BeneficiarioService {
       )
 
   }
+  getBeneficiario(id_beneficiario: number){
+    const params = new HttpParams()
+      .set('id_beneficiario',id_beneficiario.toString());
+      return this.http.get<string>(`http://localhost:3000/getBeneficiario/`,
+      {params: params, observe:'response'});
+      
+  }
   deleteBeneficiario(id: number){
     const params = new HttpParams()
     .set('id',id.toString());
-      return this.http.delete<string>('http://localhost:3000/deleteBeneficiario/',
+      return this.http.delete<BeneficiarioModule>('http://localhost:3000/deleteBeneficiario/',
       {params: params, observe:'response'});
   }
 }

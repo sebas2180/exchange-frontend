@@ -1,3 +1,7 @@
+import { ComprobarDatosComponent } from 'src/components/comprobar-datos/comprobar-datos.component';
+import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
+import { PanelUsuariosComponent } from '../components/panel-usuarios/panel-usuarios.component';
+import { PanelTasasComponent } from './../components/panel-tasas/panel-tasas.component';
 import { DepositosComponent } from './../components/depositos/depositos.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { LoginComponent } from '../components/login/login.component';
@@ -6,16 +10,29 @@ import { Routes, RouterModule,Router } from '@angular/router';
 import { PanelBeneficiariosComponent } from 'src/components/panel-beneficiarios/panel-beneficiarios.component';
 import { PruebaComponent } from 'src/components/prueba/prueba.component';
 import { NuevaTransferenciaComponent } from 'src/components/nueva-transferencia/nueva-transferencia.component';
+import { NuevoBeneficiarioComponent } from 'src/components/nuevo-beneficiario/nuevo-beneficiario.component';
+import { PanelAdministradorComponent } from 'src/components/panel-administrador/panel-administrador.component';
+import { NuevoUsuarioComponent } from 'src/components/nuevo-usuario/nuevo-usuario.component';
+import { ComprobarComponent } from 'src/components/comprobar/comprobar.component';
+import { NuevoDashboardComponent } from 'src/components/nuevo-dashboard/nuevo-dashboard.component';
 
 const routes: Routes = [
   {
   path: '',
-  redirectTo: '/login',
+  redirectTo: '/comprobar',
   pathMatch: 'full'
+},
+{
+  path: 'comprobar',
+  component: ComprobarComponent
 },
 {
   path: 'login',
   component: LoginComponent
+},
+{
+  path: 'verificar-datos',
+  component: ComprobarDatosComponent
 },
 {
   path: 'panel-usuario',
@@ -32,6 +49,28 @@ const routes: Routes = [
 },{
   path: 'transferencias',
   component: NuevaTransferenciaComponent,
+},{
+  path: 'nuevo-beneficiario',
+  component: NuevoBeneficiarioComponent,
+},
+{
+  path: 'panelAdministrador',
+  component: PanelAdministradorComponent,
+},{
+  path: 'panelTasas',
+  component: PanelTasasComponent
+},{
+  path: 'panelAdmUsuarios',
+  component: PanelUsuariosComponent
+},{
+  path: 'addUsuario',
+  component: NuevoUsuarioComponent
+},{
+  path: 'nuevoDashboard',
+  component: NuevoDashboardComponent
+},{
+  path: 'viewDashboard',
+  component: ShowDashboardComponent
 }
 ];
 
